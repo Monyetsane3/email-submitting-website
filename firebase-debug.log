@@ -1,0 +1,86 @@
+[debug] [2025-11-12T01:15:34.435Z] ----------------------------------------------------------------------
+[debug] [2025-11-12T01:15:34.438Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2025-11-12T01:15:34.438Z] CLI Version:   14.24.2
+[debug] [2025-11-12T01:15:34.438Z] Platform:      win32
+[debug] [2025-11-12T01:15:34.438Z] Node Version:  v22.18.0
+[debug] [2025-11-12T01:15:34.439Z] Time:          Wed Nov 12 2025 03:15:34 GMT+0200 (South Africa Standard Time)
+[debug] [2025-11-12T01:15:34.439Z] ----------------------------------------------------------------------
+[debug] 
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\nextjs\projects\email-submitting-web
+
+Before we get started, keep in mind:
+
+  * You are currently outside your home directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] 
+[debug] [2025-11-12T01:17:08.457Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-11-12T01:17:08.457Z] > authorizing via signed-in user (tms10050204@gmail.com)
+[debug] [2025-11-12T01:17:08.458Z] Checked if tokens are valid: true, expires at: 1762913560585
+[debug] [2025-11-12T01:17:08.458Z] Checked if tokens are valid: true, expires at: 1762913560585
+[debug] [2025-11-12T01:17:08.459Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/email-submitting-web [none]
+[debug] [2025-11-12T01:17:09.252Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/email-submitting-web 403
+[debug] [2025-11-12T01:17:09.252Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/email-submitting-web {"error":{"code":403,"message":"The caller does not have permission","status":"PERMISSION_DENIED"}}
+[debug] [2025-11-12T01:17:09.252Z] Request to https://firebase.googleapis.com/v1beta1/projects/email-submitting-web had HTTP Error: 403, The caller does not have permission
+[debug] [2025-11-12T01:17:09.253Z] FirebaseError: Request to https://firebase.googleapis.com/v1beta1/projects/email-submitting-web had HTTP Error: 403, The caller does not have permission
+    at responseToError (C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\responseToError.js:53:12)
+    at RetryOperation._fn (C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:322:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[error] 
+[error] Error: Failed to get Firebase project email-submitting-web. Please make sure the project exists and your account has permission to access it.
+[debug] [2025-11-12T01:21:52.115Z] ----------------------------------------------------------------------
+[debug] [2025-11-12T01:21:52.117Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2025-11-12T01:21:52.117Z] CLI Version:   14.24.2
+[debug] [2025-11-12T01:21:52.118Z] Platform:      win32
+[debug] [2025-11-12T01:21:52.118Z] Node Version:  v22.18.0
+[debug] [2025-11-12T01:21:52.118Z] Time:          Wed Nov 12 2025 03:21:52 GMT+0200 (South Africa Standard Time)
+[debug] [2025-11-12T01:21:52.118Z] ----------------------------------------------------------------------
+[debug] 
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\nextjs\projects\email-submitting-web
+
+Before we get started, keep in mind:
+
+  * You are currently outside your home directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] 
+[debug] [2025-11-12T01:24:22.475Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-11-12T01:24:22.475Z] > authorizing via signed-in user (tms10050204@gmail.com)
+[debug] [2025-11-12T01:24:22.476Z] Checked if tokens are valid: true, expires at: 1762913560585
+[debug] [2025-11-12T01:24:22.476Z] Checked if tokens are valid: true, expires at: 1762913560585
+[debug] [2025-11-12T01:24:22.477Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/email-submitting-web [none]
+[debug] [2025-11-12T01:24:25.075Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/email-submitting-web 403
+[debug] [2025-11-12T01:24:25.075Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/email-submitting-web {"error":{"code":403,"message":"The caller does not have permission","status":"PERMISSION_DENIED"}}
+[debug] [2025-11-12T01:24:25.075Z] Request to https://firebase.googleapis.com/v1beta1/projects/email-submitting-web had HTTP Error: 403, The caller does not have permission
+[debug] [2025-11-12T01:24:25.076Z] FirebaseError: Request to https://firebase.googleapis.com/v1beta1/projects/email-submitting-web had HTTP Error: 403, The caller does not have permission
+    at responseToError (C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\responseToError.js:53:12)
+    at RetryOperation._fn (C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:322:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[error] 
+[error] Error: Failed to get Firebase project email-submitting-web. Please make sure the project exists and your account has permission to access it.

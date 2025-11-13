@@ -1,65 +1,156 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import React, { useState, useEffect } from "react";
+import { db } from "@/lib/firebase";
+import { collection, addDoc } from "firebase/firestore";
+
+export default function EmailForm() {
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [animationStage, setAnimationStage] = useState<
+    "idle" | "treat" | "wagTail"
+  >("idle");
+  const [error, setError] = useState("");
+
+  // Animation durations (ms)
+  const TREAT_DURATION = 1000;
+  const WAG_DURATION = 1500;
+
+  //Validate email with simple regex
+  const validateEmail = (email: string) => /^\S+@\S+\.\S+$/.test(email);
+
+  //Handle email submission
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError("");
+
+    if (!validateEmail(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    try {
+      await addDoc(collection(db, "emails"), { email });
+      setSubmitted(true);
+      setAnimationStage("treat");
+    } catch {
+      setError("Error submitting email. Please try again.");
+    }
+  };
+
+  //Reset form for "Submit Another Email"
+  const handleReset = () => {
+    setEmail("");
+    setSubmitted(false);
+    setAnimationStage("idle");
+  };
+
+  //Control animation sequence timings
+  useEffect(() => {
+    let timeout1: NodeJS.Timeout;
+    let timeout2: NodeJS.Timeout;
+
+    if (animationStage === "treat") {
+      // Move to wagTail after TREAT_DURATION
+      timeout1 = setTimeout(() => setAnimationStage("wagTail"), TREAT_DURATION);
+      // Return to idle after TREAT_DURATION + WAG_DURATION
+      timeout2 = setTimeout(() => setAnimationStage("idle"), TREAT_DURATION + WAG_DURATION);
+    }
+
+    return () => {
+      clearTimeout(timeout1);
+      clearTimeout(timeout2);
+    };
+  }, [animationStage]);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-4">
+      <h1 className="text-xl md:text-2xl font-semibold mb-8 text-center">
+        Enter your email to give my dog a treat
+      </h1>
+
+      {/*Dog Animation Always Visible */}
+      <div className="w-48 h-48 relative mb-6">
+        {animationStage === "idle" && (
+          <img
+            src="/Sitting_with_tongue_out.svg"
+            alt="Dog sitting with tongue out"
+            className="absolute inset-0 w-full h-full object-contain"
+          />
+        )}
+        {animationStage === "treat" && (
+          <img
+            src="/Standing_with_tongue_out.svg"
+            alt="Dog standing with tongue out"
+            className="absolute inset-0 w-full h-full object-contain"
+          />
+        )}
+        {animationStage === "wagTail" && (
+          <img
+            src="/Standing.svg"
+            alt="Dog standing wagging tail"
+            className="absolute inset-0 w-full h-full object-contain animate-wagTail"
+          />
+        )}
+      </div>
+
+      {/* 📩 Email form or success message */}
+      {!submitted ? (
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white p-6 rounded shadow-md w-full max-w-sm"
+        >
+          {error && <p className="mb-3 text-red-600 font-semibold">{error}</p>}
+          <label htmlFor="email" className="block mb-2 font-semibold">
+            Enter your email:
+          </label>
+          <input
+            type="email"
+            id="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="mb-4 border border-gray-300 rounded p-2 w-full"
+            placeholder="you@email.com"
+            autoComplete="email"
+          />
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+          >
+            Submit
+          </button>
+        </form>
+      ) : (
+        <div className="flex flex-col items-center space-y-4">
+          <p className="text-green-700 font-semibold text-lg text-center">
+            Thank you for submitting your email!
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={handleReset}
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            Submit Another Email
+          </button>
         </div>
-      </main>
+      )}
+
+      {/*Tail wag animation style */}
+      <style jsx>{`
+        @keyframes wagTail {
+          0%,
+          100% {
+            transform: rotate(0deg);
+          }
+          50% {
+            transform: rotate(15deg);
+          }
+        }
+        .animate-wagTail {
+          animation: wagTail 0.5s ease-in-out infinite;
+          transform-origin: 80% 90%;
+        }
+      `}</style>
     </div>
   );
 }
